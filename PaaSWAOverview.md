@@ -162,7 +162,7 @@ Additionally, the following Operations Management Suite solutions are included a
 
 The data flow diagram for this reference architecture is available for [download](https://aka.ms/gdprPaaSdfd) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
-![alt text](?raw=true)
+![Threat Model](?raw=true)
 
 ## Compliance documentation
 The [Azure Security and Compliance Blueprint - NIST SP 800-171 Customer Responsibility Matrix](https://aka.ms/nist800171crm) lists all security controls required by NIST SP 800-171. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.

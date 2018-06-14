@@ -2,7 +2,7 @@
 
 ## Overview
 
-![Reference Architecture]()
+![Reference Architecture](https://github.com/sukykaur/AzureAUS/blob/master/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20IaaS%20WebApp%20Reference%20Architecture.png?raw=true)
 
 This solution uses the following Azure services. Details of the deployment architecture are located in the [deployment architecture](#deployment-architecture) section.
 
@@ -136,7 +136,7 @@ The architecture reduces the risk of security vulnerabilities using an Azure App
 
 **Recovery Services Vault**: The [Recovery Services Vault](https://docs.microsoft.com/azure/backup/backup-azure-recovery-services-vault-overview) houses backup data and protects all configurations of Azure Virtual Machines in this architecture. With a Recovery Services Vault, customers can restore files and folders from an IaaS virtual machine without restoring the entire virtual machine, enabling faster restore times.
 
-**Cloud Witness**: [Cloud Witness](https://docs.microsoft.com/windows-server/failover-clustering/whats-new-in-failover-clustering#BKMK_CloudWitness) is a type of Failover Cluster quorum witness in Windows Server 2016 that leverages Azure as the arbitration point. The Cloud Witness, like any other quorum witness, gets a vote and can participate in the quorum calculations, but it uses the standard publicly available Azure Blob Storage. This eliminates the extra maintenance overhead of virtual machiness hosted in a public cloud.
+**Cloud Witness**: [Cloud Witness](https://docs.microsoft.com/windows-server/failover-clustering/whats-new-in-failover-clustering#BKMK_CloudWitness) is a type of Failover Cluster quorum witness in Windows Server 2016 that leverages Azure as the arbitration point. The Cloud Witness, like any other quorum witness, gets a vote and can participate in the quorum calculations, but it uses the standard publicly available Azure Blob Storage. This eliminates the extra maintenance overhead of virtual machines hosted in a public cloud.
 
 ### Logging and auditing
 
@@ -161,13 +161,13 @@ The following Azure Log Analytics [management solutions](https://docs.microsoft.
 
 The data flow diagram for this reference architecture is available for [download](https://aka.ms/) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
-![Threat Model]()
+![Threat Model](https://github.com/sukykaur/AzureAUS/blob/master/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20IaaS%20WebApp%20Threat%20Model.png?raw=true)
 
 ## Compliance documentation
 
-The [Azure Security and Compliance Blueprint – UK NHS Customer Responsibility Matrix](https://aka.ms/) lists all security principles required by UK NHS. This matrix details whether the implementation of each principle is the responsibility of Microsoft, the customer, or shared between the two.
+The [Azure Security and Compliance Blueprint – AU-Protected Customer Responsibility Matrix](https://aka.ms/) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
 
-The [Azure Security and Compliance Blueprint – UK NHS PaaS Web Application Implementation Matrix](https://aka.ms/) provides information on which UK NHS requirements are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered principle.
+The [Azure Security and Compliance Blueprint – AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/) provides information on which AU-Protected controls are addressed by the IaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
 
 ## Guidance and recommendations
 

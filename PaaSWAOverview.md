@@ -5,14 +5,20 @@
 
 (Develop Introduction)
 
-This Azure Security and Compliance Blueprint provides guidance to help customers deploy a platform as a service (PaaS) web application in Azure that implements a subset of _________. This solution demonstrates ways in which customers can meet specific security and compliance requirements and serves as a foundation for customers to build and configure their own web application in Azure.
+This Azure Security and Compliance Blueprint provides guidance to help customers deploy a platform as a service (PaaS) web application in Azure that implements a subset of AU-Protected controls. This solution demonstrates ways in which customers can meet specific security and compliance requirements and serves as a foundation for customers to build and configure their own web application in Azure.
 
-This reference architecture, associated implementation guide, and threat model are intended to serve as a foundation for customers to adapt to their specific requirements and shouldn't be used as-is in a production environment. Deploying this architecture without modification is insufficient to completely meet the requirements of _____. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
+This reference architecture, associated implementation guide, and threat model are intended to serve as a foundation for customers to adapt to their specific requirements and shouldn't be used as-is in a production environment. Deploying this architecture without modification is insufficient to completely meet the requirements of AU-Protected. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
 
 ## Architecture diagram and components
-This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer. **Microsoft recommends configuring a VPN or ExpressRoute connection for management and data import into the reference architecture subnet.**
+This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. All external connections require TLSv1.2. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer.
 
-![Reference Architecture](?raw=true)
+The entire solution uses Azure Storage accounts, which customers can configure to use Storage Service Encryption to maintain confidentiality of data at rest. Geographic redundant storage ensures that an adverse event at the customer's primary data center will not result in a loss of data, as a second copy will be stored in a separate location hundreds of miles away.
+
+For enhanced security, this architecture manages resources with Azure Active Directory and Azure Key Vault. System health is monitored through Azure Security Center and Azure Monitor. Customers configure both monitoring services to capture logs and display system health in a single, easily navigable dashboard. Azure Application Gateway is configured as a firewall in prevention mode and disallows traffic that is not TLSv1.2. The solution utilizes Azure Application Service Environment v2 to isolate the web tier in a non-multi-tenant environment.
+
+**Microsoft recommends configuring a VPN or ExpressRoute connection for management and data import into the reference architecture subnet.**
+
+![Reference Architecture](https://github.com/sukykaur/AzureAUS/blob/master/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Reference%20Architecture.png?raw=true)
 
 This solution uses the following Azure services. Details of the deployment architecture are located in the [deployment architecture](#deployment-architecture) section.
 
@@ -28,12 +34,14 @@ This solution uses the following Azure services. Details of the deployment archi
 - Network security groups
 - Azure DNS
 - Azure Storage
+- Azure Log Analytics
 - Azure Monitor
 - Azure Security Center
 - App Service Environment v2
 - Azure Load Balancer
 - Azure Web App
 - Azure Resource Manager
+- Azure Automation
 
 ## Deployment architecture
 The following section details the deployment and implementation elements.
@@ -163,12 +171,12 @@ The following Azure Log Analytics [management solutions](https://docs.microsoft.
 
 The data flow diagram for this reference architecture is available for [download](https://aka.ms/gdprPaaSdfd) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
-![Threat Model](?raw=true)
+![Threat Model](https://github.com/sukykaur/AzureAUS/blob/master/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Threat%20Model.png?raw=true)
 
 ## Compliance documentation
-The [Azure Security and Compliance Blueprint - NIST SP 800-171 Customer Responsibility Matrix](https://aka.ms/nist800171crm) lists all security controls required by NIST SP 800-171. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
+The [Azure Security and Compliance Blueprint - AU-Protected Customer Responsibility Matrix](https://aka.ms/) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
 
-The [Azure Security and Compliance Blueprint - NIST SP 800-171 PaaS Web Application Implementation Matrix](https://aka.ms/nist800171PaasCIM) provides information on which NIST SP 800-171 controls are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
+The [Azure Security and Compliance Blueprint - AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/) provides information on which AU-Protected controls are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
 
 ## Guidance and recommendations
 ### VPN and ExpressRoute

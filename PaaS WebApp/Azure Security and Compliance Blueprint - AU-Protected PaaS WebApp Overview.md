@@ -1,13 +1,15 @@
 
-# Azure Security and Compliance Blueprint - Web Application for Australia Protect
+# Azure Security and Compliance Blueprint - PaaS Web Application for Australia Protect
 
 ## Overview
 
-(Develop Introduction)
+This Azure Security and Compliance Blueprint provides guidance for the deployment of a platform as a service (PaaS) environment suitable for the collection, storage, and retrieval of sensitive government and commercial data that is compliant with the objectives of the Australian Government Information Security Manual (ISM) produced by the Australian Signals Directorate (ASD). This blueprint showcases a common reference architecture and demonstrates the proper handling of financial data in a secure, compliant, multi-tier environment. This blueprint illustrates an end-to-end solution to meet the needs of organizations seeking a cloud-based approach to reducing the burden and cost of deployment.
 
-This Azure Security and Compliance Blueprint provides guidance to help customers deploy a platform as a service (PaaS) web application in Azure that implements a subset of AU-Protected controls. This solution demonstrates ways in which customers can meet specific security and compliance requirements and serves as a foundation for customers to build and configure their own web application in Azure.
+This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with AU-Protected requirements. This solution provides a baseline to help customers deploy workloads to Azure in a manner compliant with AU-Protected, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
 
-This reference architecture, associated implementation guide, and threat model are intended to serve as a foundation for customers to adapt to their specific requirements and shouldn't be used as-is in a production environment. Deploying this architecture without modification is insufficient to completely meet the requirements of AU-Protected. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
+(Details of following paragraph need to be reworked to align)
+
+Achieving FFIEC-compliance requires that qualified auditors certify a production customer solution. Audits will be overseen by examiners from FFIEC’s member agencies including the Board of Governors of the Federal Reserve System (FRB), the Federal Deposit Insurance Corporation (FDIC), the National Credit Union Administration (NCUA), the Office of the Comptroller of the Currency (OCC), and the Consumer Financial Protection Bureau (CFPB). These examiners will certify audits were completed by auditors who maintained independence from the institution they audited. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
 
 ## Architecture diagram and components
 This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. All external connections require TLSv1.2. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer.

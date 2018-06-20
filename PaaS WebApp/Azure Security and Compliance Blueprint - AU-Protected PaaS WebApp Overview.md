@@ -3,7 +3,7 @@
 
 ## Overview
 
-This Azure Security and Compliance Blueprint provides guidance for the deployment of a platform as a service (PaaS) environment suitable for the collection, storage, and retrieval of sensitive government and commercial data that is compliant with the objectives of the Australian Government Information Security Manual (ISM) produced by the Australian Signals Directorate (ASD). This blueprint showcases a common reference architecture and demonstrates the proper handling of financial data in a secure, compliant, multi-tier environment. This blueprint illustrates an end-to-end solution to meet the needs of organizations seeking a cloud-based approach to reducing the burden and cost of deployment.
+This Azure Security and Compliance Blueprint provides guidance for the deployment of a platform as a service (PaaS) environment suitable for the collection, storage, and retrieval of sensitive government and commercial data that is compliant with the objectives of the Australian Government Information Security Manual (ISM) produced by the Australian Signals Directorate (ASD). This blueprint showcases a common reference architecture and demonstrates the proper handling of sensitive government and commercial data in a secure, compliant, multi-tier environment.
 
 This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with AU-Protected requirements. This solution provides a baseline to help customers deploy workloads to Azure in a manner compliant with AU-Protected, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
 

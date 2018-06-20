@@ -1,11 +1,11 @@
 
-# Azure Security and Compliance Blueprint - PaaS Web Application for Australia Protect
+# Azure Security and Compliance Blueprint - PaaS Web Application for Australia Protected
 
 ## Overview
 
 This Azure Security and Compliance Blueprint provides guidance for the deployment of a platform as a service (PaaS) environment suitable for the collection, storage, and retrieval of sensitive government and commercial data that is compliant with the objectives of the Australian Government Information Security Manual (ISM) produced by the Australian Signals Directorate (ASD). This blueprint showcases a common reference architecture and demonstrates the proper handling of sensitive government and commercial data in a secure, compliant, multi-tier environment.
 
-This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with AU-Protected requirements. This solution provides a baseline to help customers deploy workloads to Azure in a manner compliant with AU-Protected, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
+This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with ASD requirements. This solution provides a baseline to help customers deploy workloads to Azure in an ASD-compliant manner, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
 
 Achieving ASD-compliance requires that an Information Security Registered Assessor audits the system. The auditor will describe areas of compliance and noncompliance and give the system owner an opportunity to fix any areas noncompliance before reassessing the system. If the remaining security risks are considered appropriate, then the system will be granted certification. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
 

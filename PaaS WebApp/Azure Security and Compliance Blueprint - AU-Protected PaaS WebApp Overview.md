@@ -1,3 +1,15 @@
+---
+title: Azure Security and Compliance Blueprint - PaaS Web Application for AU-Protected
+description: Azure Security and Compliance Blueprint - PaaS Web Application for AU-Protected
+services: security
+author: meladie
+
+ms.assetid: 708aa129-b226-4e02-85c6-1f86e54564e4
+ms.service: security
+ms.topic: article
+ms.date: 06/20/2018
+ms.author: meladie
+---
 # Azure Security and Compliance Blueprint - PaaS Web Application for Australia Protected
 
 ## Overview

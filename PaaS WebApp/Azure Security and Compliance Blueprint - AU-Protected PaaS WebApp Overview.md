@@ -1,4 +1,3 @@
-
 # Azure Security and Compliance Blueprint - PaaS Web Application for Australia Protected
 
 ## Overview
@@ -7,7 +6,7 @@ This Azure Security and Compliance Blueprint provides guidance for the deploymen
 
 This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with ASD requirements. This solution provides a baseline to help customers deploy workloads to Azure in an ASD-compliant manner, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
 
-Achieving ASD-compliance requires that an Information Security Registered Assessor audits the system. The auditor will describe areas of compliance and noncompliance and give the system owner an opportunity to fix any areas noncompliance before reassessing the system. If the remaining security risks are considered appropriate, then the system will be granted certification. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
+Achieving ASD-compliance requires that an Information Security Registered Assessor audits the system. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
 
 ## Architecture diagram and components
 This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. All external connections require TLSv1.2. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer.
@@ -18,7 +17,7 @@ For enhanced security, all resources in this solution are managed as a resource 
 
 **Microsoft recommends configuring a VPN or ExpressRoute connection for management and data import into the reference architecture subnet.**
 
-![PaaS Web Application for AU-Protected Reference Architecture](https://github.com/sukykaur/AzureAUS/blob/master/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Reference%20Architecture.png?raw=true)
+![PaaS Web Application for AU-Protected Reference Architecture](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Reference%20Architecture.png)
 
 This solution uses the following Azure services. Details of the deployment architecture are located in the [deployment architecture](#deployment-architecture) section.
 
@@ -171,7 +170,7 @@ The following Log Analytics [management solutions](https://docs.microsoft.com/az
 
 The data flow diagram for this reference architecture is available for [download](https://aka.ms/gdprPaaSdfd) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
-![PaaS Web Application for AU-Protected Threat Model](https://github.com/sukykaur/AzureAUS/blob/master/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Threat%20Model.png?raw=true)
+![PaaS Web Application for AU-Protected Threat Model](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Threat%20Model.png)
 
 ## Compliance documentation
 The [Azure Security and Compliance Blueprint - AU-Protected Customer Responsibility Matrix](https://aka.ms/) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.

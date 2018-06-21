@@ -31,7 +31,7 @@ A management bastion host provides a secure connection for administrators to acc
 
 ![IaaS Web Application for AU-Protected Reference Architecture](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20IaaS%20WebApp%20Reference%20Architecture.png)
 
-This solution uses the following Azure services. Details of the deployment architecture are located in the [deployment architecture](#deployment-architecture) section.
+This solution uses the following Azure services. Details of the deployment architecture are in the [deployment architecture](#deployment-architecture) section.
 
 - Availability Sets
 	- (1) Active Directory domain controllers
@@ -67,7 +67,7 @@ This solution uses the following Azure services. Details of the deployment archi
 
 The following section details the deployment and implementation elements.
 
-**Bastion host**: The bastion host is the single point of entry that allows users to access the deployed resources in this environment. The bastion host provides a secure connection to deployed resources by only allowing remote traffic from public IP addresses on a safe list. To permit remote desktop (RDP) traffic, the source of the traffic needs to be defined in the Network Security Group.
+**Bastion host**: The bastion host is the single point of entry that allows users to access the deployed resources in this environment. The bastion host provides a secure connection to deployed resources by only allowing remote traffic from public IP addresses on a safe list. To permit remote desktop (RDP) traffic, the source of the traffic needs to be defined in the network security group.
 
 This solution creates a virtual machine as a domain-joined bastion host with the following configurations:
 -	[Antimalware extension](https://docs.microsoft.com/azure/security/azure-security-antimalware)
@@ -197,13 +197,13 @@ The data flow diagram for this reference architecture is available for [download
 
 The [Azure Security and Compliance Blueprint – AU-Protected Customer Responsibility Matrix](https://aka.ms/) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
 
-The [Azure Security and Compliance Blueprint – AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/) provides information on which AU-Protected controls are addressed by the IaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
+The [Azure Security and Compliance Blueprint – AU-Protected IaaS Web Application Implementation Matrix](https://aka.ms/) provides information on which AU-Protected controls are addressed by the IaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
 
 ## Guidance and recommendations
 
 ### VPN and ExpressRoute
 
-A secure VPN tunnel or [ExpressRoute](https://docs.microsoft.com/azure/expressroute/expressroute-introduction) needs to be configured to securely establish a connection to the resources deployed as a part of this PaaS web application reference architecture. By appropriately setting up a VPN or ExpressRoute, customers can add a layer of protection for data in transit.
+A secure VPN tunnel or [ExpressRoute](https://docs.microsoft.com/azure/expressroute/expressroute-introduction) needs to be configured to securely establish a connection to the resources deployed as a part of this IaaS web application reference architecture. By appropriately setting up a VPN or ExpressRoute, customers can add a layer of protection for data in transit.
 
 By implementing a secure VPN tunnel with Azure, a virtual private connection between an on-premises network and an Azure virtual network can be created. This connection takes place over the Internet and allows customers to securely &quot;tunnel&quot; information inside an encrypted link between the customer&#39;s network and Azure. Site-to-site VPN is a secure, mature technology that has been deployed by enterprises of all sizes for decades. The [IPsec tunnel mode](https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc786385(v=ws.10)) is used in this option as an encryption mechanism.
 

@@ -31,7 +31,7 @@ For enhanced security, all resources in this solution are managed as a resource 
 
 ![PaaS Web Application for AU-Protected Reference Architecture](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Reference%20Architecture.png)
 
-This solution uses the following Azure services. Details of the deployment architecture are located in the [deployment architecture](#deployment-architecture) section.
+This solution uses the following Azure services. Details of the deployment architecture are in the [deployment architecture](#deployment-architecture) section.
 
 - Azure Active Directory
 - Azure Key Vault

@@ -1,6 +1,6 @@
 ---
-title: Azure Security and Compliance Blueprint - IaaS Web Application for AU-Protected
-description: Azure Security and Compliance Blueprint - IaaS Web Application for AU-Protected
+title: Azure Security and Compliance Blueprint - IaaS Web Application for Australia Protected
+description: Azure Security and Compliance Blueprint - IaaS Web Application for Australia Protected
 services: security
 author: meladie
 
@@ -10,7 +10,7 @@ ms.topic: article
 ms.date: 06/20/2018
 ms.author: meladie
 ---
-# Azure Security and Compliance Blueprint - IaaS Web Application for AU-Protected
+# Azure Security and Compliance Blueprint - IaaS Web Application for Australia Protected
 
 ## Overview
 

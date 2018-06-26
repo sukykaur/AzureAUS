@@ -16,14 +16,14 @@ ms.author: meladie
 
 This Azure Security and Compliance Blueprint provides guidance for the deployment of a platform as a service (PaaS) environment suitable for the collection, storage, and retrieval of AU-Protected government and commercial data that is compliant with the objectives of the Australian Government Information Security Manual (ISM) produced by the Australian Signals Directorate (ASD). This blueprint showcases a common reference architecture and demonstrates the proper handling of sensitive government and commercial data in a secure, compliant, multi-tier environment.
 
-This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with ASD requirements. This solution provides a baseline to help customers deploy workloads to Azure in an ASD-compliant manner, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
+This reference architecture, implementation guide, and threat model provide a foundation for customers to comply with ASD requirements. This solution also provides a baseline to help customers deploy workloads to Azure in an ASD-compliant manner, however, this solution should not be used as-is in a production environment. Additional configuration is required to meet all the requirements, as they may vary based on the specifics of each customer's implementation.
 
 Achieving ASD-compliance requires that an Information Security Registered Assessor audits the system. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
 
 ## Architecture diagram and components
 This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. All external connections require TLSv1.2. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer.
 
-The solution uses Azure Storage accounts, which customers can configure to use Storage Service Encryption to maintain confidentiality of data at rest. Azure stores three copies of data within a customer's selected datacenter for resiliency. Geographic redundant storage ensures that data will be replicated to a secondary datacenter hundreds of miles away and stored again as three copies within that datacenter, preventing an adverse event at the customer's primary data center from resulting in a loss of data.
+The solution uses Azure Storage accounts, which customers can configure to use Storage Service Encryption to maintain confidentiality of data at rest. Azure stores three copies of data within a customer's selected region for resiliency. Azure regions are deployed in resilient region pairs, and geographic redundant storage ensures that data will be replicated to the second region with three copies as well. This prevents against loss of data due to an adverse event at the customer's primary data location.
 
 For enhanced security, all resources in this solution are managed as a resource group through Azure Resource Manager. Azure Active Directory role-based access control is used for controlling access to deployed resources and keys in Azure Key Vault. System health is monitored through Azure Security Center and Azure Monitor. Customers configure both monitoring services to capture logs and display system health in a single, easily navigable dashboard. Azure Application Gateway is configured as a firewall in prevention mode and disallows traffic that is not TLSv1.2. The solution utilizes Azure Application Service Environment v2 to isolate the web tier in a non-multi-tenant environment.
 
@@ -107,7 +107,7 @@ Azure encrypts all communications to and from Azure datacenters by default. All 
 The architecture protects data at rest through encryption, database auditing, and other measures.
 
 **Azure Storage**:
-To meet encrypted data at rest requirements, all [Azure Storage](https://azure.microsoft.com/services/storage/) uses [Storage Service Encryption](https://docs.microsoft.com/azure/storage/storage-service-encryption). This helps protect and safeguard data in support of organizational security commitments and compliance requirements defined by NIST SP 800-171.
+To meet encrypted data at rest requirements, all [Azure Storage](https://azure.microsoft.com/services/storage/) uses [Storage Service Encryption](https://docs.microsoft.com/azure/storage/storage-service-encryption). This helps protect and safeguard data in support of organizational security commitments and compliance requirements defined by Australian Government ISM.
 
 **Azure Disk Encryption**:
 [Azure Disk Encryption](https://docs.microsoft.com/azure/security/azure-security-disk-encryption) leverages the BitLocker feature of Windows to provide volume encryption for data disks. The solution integrates with Azure Key Vault to help control and manage the disk-encryption keys.
@@ -180,14 +180,14 @@ The following Log Analytics [management solutions](https://docs.microsoft.com/az
 
 ## Threat model
 
-The data flow diagram for this reference architecture is available for [download](https://aka.ms/gdprPaaSdfd) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
+The data flow diagram for this reference architecture is available for [download](https://aka.ms/AUIaaSTM) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
 ![PaaS Web Application for AU-Protected Threat Model](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Threat%20Model.png)
 
 ## Compliance documentation
-The [Azure Security and Compliance Blueprint - AU-Protected Customer Responsibility Matrix](https://aka.ms/) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
+The [Azure Security and Compliance Blueprint - AU-Protected Customer Responsibility Matrix](https://aka.ms/AUcrm) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
 
-The [Azure Security and Compliance Blueprint - AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/) provides information on which AU-Protected controls are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
+The [Azure Security and Compliance Blueprint - AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/AUIaaScim) provides information on which AU-Protected controls are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
 
 ## Guidance and recommendations
 ### VPN and ExpressRoute

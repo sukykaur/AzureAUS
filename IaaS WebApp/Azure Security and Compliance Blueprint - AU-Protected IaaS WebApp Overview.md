@@ -51,16 +51,13 @@ This solution uses the following Azure services. Details of the deployment archi
 - Azure Security Center
 - Azure Log Analytics
 - Azure Storage
-	- (7) Geo-redundant storage accounts
 - Azure Virtual Machines
 	- (1) management/bastion (Windows Server 2016 Datacenter)
 	- (2) Active Directory domain controller (Windows Server 2016 Datacenter)
 	- (2) SQL Server cluster node (SQL Server 2017 on Windows Server 2016)
 	- (2) Web/IIS (Windows Server 2016 Datacenter)
 - Azure Virtual Network
-	- (1) /16 Network
-	- (5) /24 Networks
-	- (5) Network security group
+	- (5) Network security groups
 - Recovery Services Vault
 
 ## Deployment architecture

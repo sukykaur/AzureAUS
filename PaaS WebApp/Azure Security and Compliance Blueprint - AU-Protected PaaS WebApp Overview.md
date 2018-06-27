@@ -29,7 +29,7 @@ For enhanced security, all resources in this solution are managed as a resource 
 
 **Microsoft recommends configuring a VPN or ExpressRoute connection for management and data import into the reference architecture subnet.**
 
-![PaaS Web Application for AU-Protected Reference Architecture](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Reference%20Architecture.png)
+![PaaS Web Application for AU-Protected Reference Architecture](https://github.com/sukykaur/AzureAUS/blob/master/PaaS%20WebApp/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-PROTECTED%20PaaS%20WebApp%20visio.png?raw=true)
 
 This solution uses the following Azure services. Details of the deployment architecture are in the [deployment architecture](#deployment-architecture) section.
 

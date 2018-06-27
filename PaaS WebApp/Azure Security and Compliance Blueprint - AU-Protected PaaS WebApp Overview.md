@@ -21,17 +21,17 @@ This reference architecture, implementation guide, and threat model provide a fo
 Achieving ASD-compliance requires that an Information Security Registered Assessor audits the system. Customers are responsible for conducting appropriate security and compliance assessments of any solution built using this architecture, as requirements may vary based on the specifics of each customer's implementation.
 
 ## Architecture diagram and components
-This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. All external connections require TLSv1.2. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer.
+This solution provides a reference architecture for a PaaS web application with an Azure SQL Database backend. The web application is hosted in an isolated Azure App Service Environment, which is a private, dedicated environment in an Azure datacenter. The environment load balances traffic for the web application across virtual machines managed by Azure. All external connections require TLSv1.2 or above. This architecture also includes network security groups, an Application Gateway, Azure DNS, and Load Balancer.
 
-The architecture delivers a secure hybrid environment that extends an on-premises network to Azure, allowing web-based workloads to be accessed securely by corporate users of an organization’s private local-area network or from the internet. For on-premises solutions, the customer is both accountable and responsible for all aspects of security and operations.
+The architecture can deliver a secure hybrid environment that extends an on-premises network to Azure, allowing web-based workloads to be accessed securely by corporate users of an organization’s private local-area network or from the internet. For on-premises solutions, the customer is both accountable and responsible for all aspects of security and operations.
 
 The Azure resources included in this solution can connect to an on-premises network or datacenter (e.g. CDC datacenter in Canberra) through IPSec VPN using the Azure VPN Gateway or through [ExpressRoute](https://docs.microsoft.com/azure/guidance/guidance-hybrid-network-expressroute). Customers should ensure that they are using an appropriate [VPN Gateway]( https://github.com/mspnp/template-building-blocks/tree/v1.0.0/templates/buildingBlocks/vpn-gateway-vpn-connection) to connect to Azure. Customers running large-scale, mission critical workloads with big data requirements may consider a hybrid network architecture using ExpressRoute for private network connectivity to Azure services. Refer to the [guidance and recommendations](#guidance-and-recommendations) section for further details on connection mechanisms to Azure.
 
-Federation with Azure Active Directory can be used to enable users to authenticate using on-premises credentials and access all resources in the cloud by using an on-premises Active Directory Federation Services infrastructure. Active Directory Federation Services provides simplified, secured identity federation and web single sign-on capabilities in this hybrid environment. Refer to the [guidance and recommendations](#guidance-and-recommendations) section for further details Azure Active Directory setup.
+Federation with Azure Active Directory can be used to enable users to authenticate using on-premises credentials and access all resources in the cloud by using an on-premises Active Directory Federation Services infrastructure. Active Directory Federation Services can provide simplified, secured identity federation and web single sign-on capabilities for this hybrid environment. Refer to the [guidance and recommendations](#guidance-and-recommendations) section for further details Azure Active Directory setup.
 
-The solution uses Azure Storage accounts, which customers can configure to use Storage Service Encryption to maintain confidentiality of data at rest. Azure stores three copies of data within a customer's selected region for resiliency. Azure regions are deployed in resilient region pairs, and geographic redundant storage ensures that data will be replicated to the second region with three copies as well. This prevents against loss of data due to an adverse event at the customer's primary data location.
+The solution uses Azure Storage accounts, which customers can configure to use Storage Service Encryption to maintain confidentiality of data at rest. Azure stores three copies of data within a customer's selected region for resiliency. Azure regions are deployed in resilient region pairs, and geographic redundant storage ensures that data will be replicated to the second region with three copies as well. This prevents an adverse event at the customer's primary data location resulting in a loss of data.
 
-For enhanced security, all Azure resources in this solution are managed as a resource group through Azure Resource Manager. Azure Active Directory role-based access control is used for controlling access to deployed resources and keys in Azure Key Vault. System health is monitored through Azure Security Center and Azure Monitor. Customers configure both monitoring services to capture logs and display system health in a single, easily navigable dashboard. Azure Application Gateway is configured as a firewall in prevention mode and disallows traffic that is not TLSv1.2. The solution utilizes Azure Application Service Environment v2 to isolate the web tier in a non-multi-tenant environment.
+For enhanced security, all Azure resources in this solution are managed as a resource group through Azure Resource Manager. Azure Active Directory role-based access control is used for controlling access to deployed resources and keys in Azure Key Vault. System health is monitored through Azure Security Center and Azure Monitor. Customers configure both monitoring services to capture logs and display system health in a single, easily navigable dashboard. Azure Application Gateway is configured as a firewall in prevention mode and disallows traffic that is not TLSv1.2 or above. The solution utilizes Azure Application Service Environment v2 to isolate the web tier in a non-multi-tenant environment.
 
 ![PaaS Web Application for AU-Protected Reference Architecture](https://github.com/sukykaur/AzureAUS/blob/master/PaaS%20WebApp/Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-PROTECTED%20PaaS%20WebApp%20visio.png?raw=true)
 
@@ -46,7 +46,7 @@ This solution uses the following Azure services. Details of the deployment archi
 		- Rule set: OWASP 3.0
 		- Listener: port 443
 - Azure Virtual Network
-- Network security groups
+	- (3) Network security groups
 - Azure DNS
 - Azure Storage
 - Azure Log Analytics
@@ -127,8 +127,9 @@ The Azure SQL Database instance uses the following database security measures:
 - [SQL Database dynamic data masking](https://docs.microsoft.com/azure/sql-database/sql-database-dynamic-data-masking-get-started) limits sensitive data exposure by masking the data to non-privileged users or applications. Dynamic data masking can automatically discover potentially sensitive data and suggest the appropriate masks to be applied. This helps with reducing access such that sensitive data does not exit the database via unauthorized access. **Customers will need to adjust dynamic data masking settings to adhere to their database schema.**
 
 ### Identity management
-The following technologies provide capabilities to manage access to data in the Azure environment:
--	[Azure Active Directory](https://azure.microsoft.com/services/active-directory/) is Microsoft's multi-tenant cloud-based directory and identity management service. All users for this solution are created in Azure Active Directory, including users accessing the Azure SQL Database.
+Customers may utilize on-premises Active Directory Federated Services to federate with [Azure Active Directory](https://azure.microsoft.com/services/active-directory/), which is Microsoft's multi-tenant cloud-based directory and identity management service. All users for this solution require Azure Active Directory accounts, including users accessing the Azure SQL Database. With federation sign-in, users can sign in to Azure Active Directory and authenticate to Azure resources using on-premises credentials.
+
+The following Azure Active Directory capabilities help manage access to data in the Azure environment:
 -	Authentication to the application is performed using Azure Active Directory. For more information, see [integrating applications with Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/active-directory-integrating-applications). Additionally, the database column encryption uses Azure Active Directory to authenticate the application to Azure SQL Database. For more information, see how to [protect sensitive data in Azure SQL Database](https://docs.microsoft.com/azure/sql-database/sql-database-always-encrypted-azure-key-vault).
 -	[Azure role-based access control](https://docs.microsoft.com/azure/active-directory/role-based-access-control-configure) enables administrators to define fine-grained access permissions to grant only the amount of access that users need to perform their jobs. Instead of giving every user unrestricted access for Azure resources, administrators can allow only certain actions for accessing resources and data. Subscription access is limited to the subscription administrator.
 - [Azure Active Directory Privileged Identity Management](https://docs.microsoft.com/azure/active-directory/active-directory-privileged-identity-management-getting-started) enables customers to minimize the number of users who have access to certain information.  Administrators can use Azure Active Directory Privileged Identity Management to discover, restrict, and monitor privileged identities and their access to resources. This functionality can also be used to enforce on-demand, just-in-time administrative access when needed.
@@ -184,7 +185,7 @@ The following Log Analytics [management solutions](https://docs.microsoft.com/az
 
 ## Threat model
 
-The data flow diagram for this reference architecture is available for [download](https://aka.ms/AUIaaSTM) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
+The data flow diagram for this reference architecture is available for [download](https://aka.ms/AUPaaSTM) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
 ![PaaS Web Application for AU-Protected Threat Model](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20PaaS%20WebApp%20Threat%20Model.png)
 
@@ -193,7 +194,7 @@ This compliance documentation is produced by Microsoft based on platforms and se
 
 The [Azure Security and Compliance Blueprint - AU-Protected Customer Responsibility Matrix](https://aka.ms/AUcrm) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
 
-The [Azure Security and Compliance Blueprint - AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/AUIaaScim) provides information on which AU-Protected controls are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
+The [Azure Security and Compliance Blueprint - AU-Protected PaaS Web Application Implementation Matrix](https://aka.ms/AUPaaScim) provides information on which AU-Protected controls are addressed by the PaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
 
 ## Guidance and recommendations
 ### VPN and ExpressRoute

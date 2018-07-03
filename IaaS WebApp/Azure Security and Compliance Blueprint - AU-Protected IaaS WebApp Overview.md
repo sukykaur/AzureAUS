@@ -115,24 +115,22 @@ The architecture protects data at rest through encryption, database auditing, an
 
 ### Identity management
 
-Customers may utilize on-premises Active Directory Federated Services to federate with [Azure Active Directory](https://azure.microsoft.com/services/active-directory/), which is Microsoft's multi-tenant cloud-based directory and identity management service. All users for this solution require Azure Active Directory accounts, including users accessing the Azure SQL Database. With federation sign-in, users can sign in to Azure Active Directory and authenticate to Azure resources using on-premises credentials.
+Customers may utilize on-premises Active Directory Federated Services to federate with [Azure Active Directory](https://azure.microsoft.com/services/active-directory/), which is Microsoft's multi-tenant cloud-based directory and identity management service. [Azure Active Directory Connect](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect) integrates on-premises directories with Azure Active Directory. All users in this solution require Azure Active Directory accounts, including users accessing the Azure SQL Database. With federation sign-in, users can sign in to Azure Active Directory and authenticate to Azure resources using on-premises credentials.
 
-The following Azure Active Directory capabilities help manage access to data in the Azure environment:
+To prevent classified data from synchronizing to Azure Active Directory, customers can restrict the attributes that are replicated to Azure Active Directory by applying the following settings in Azure Active Directory Connect:
+- [Enable filtering](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnectsync-configure-filtering)
+- [Disable password hash synchronization](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnectsync-implement-password-hash-synchronization)
+- [Disable password writeback](https://docs.microsoft.com/azure/active-directory/authentication/quickstart-sspr)
+- [Disable device writeback](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect-feature-device-writeback)
+- Leave the default settings for [prevent accidental deletes](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnectsync-feature-prevent-accidental-deletes) and [automatic upgrade](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect-feature-automatic-upgrade)
+
+Furthermore, the following Azure Active Directory capabilities help manage access to data in the Azure environment:
 - Authentication to the application is performed using Azure Active Directory. For more information, see [integrating applications with Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/active-directory-integrating-applications). Additionally, the database column encryption uses Azure Active Directory to authenticate the application to Azure SQL Database. For more information, see how to [protect sensitive data in Azure SQL Database](https://docs.microsoft.com/azure/sql-database/sql-database-always-encrypted-azure-key-vault).
 - [Azure role-based access control](https://docs.microsoft.com/azure/active-directory/role-based-access-control-configure) enables administrators to define fine-grained access permissions to grant only the amount of access that users need to perform their jobs. Instead of giving every user unrestricted permission for Azure resources, administrators can allow only certain actions for accessing data. Subscription access is limited to the subscription administrator.
 - [Azure Active Directory Privileged Identity Management](https://docs.microsoft.com/azure/active-directory/active-directory-privileged-identity-management-getting-started) enables customers to minimize the number of users who have access to certain information. Administrators can use Azure Active Directory Privileged Identity Management to discover, restrict, and monitor privileged identities and their access to resources. This functionality can also be used to enforce on-demand, just-in-time administrative access when needed.
 - [Azure Active Directory Identity Protection](https://docs.microsoft.com/azure/active-directory/active-directory-identityprotection) detects potential vulnerabilities affecting an organization&#39;s identities, configures automated responses to detected suspicious actions related to an organization&#39;s identities, and investigates suspicious incidents to take appropriate action to resolve them.
 
-Furthermore, customers can restrict the attributes that are replicated to Azure Active Directory by applying the following settings:
-Enable Filtering
-Disable password hash synchronization
-Disable password writeback
-Disable device writeback
-Leave Prevent Accidental Deletes and Automatic Upgrade as default settings
-
-
-**Azure Multi-Factor Authentication**: To protect identities, multi-factor authentication should be implemented. [Azure Multi-Factor Authentication](https://azure.microsoft.com/services/multi-factor-authentication/)
-
+**Azure Multi-Factor Authentication**: To protect identities, multi-factor authentication should be implemented. [Azure Multi-Factor Authentication](https://azure.microsoft.com/services/multi-factor-authentication/) is an easy to use, scalable, and reliable solution that provides a second method of authentication to protect users. Azure Multi-Factor Authentication uses the power of the cloud and integrates with on-premises Active Directory and custom applications. This protection is extended to high-volume, mission-critical scenarios.
 
 ### Security
 
@@ -200,7 +198,7 @@ The following Log Analytics [management solutions](https://docs.microsoft.com/az
 
 ## Threat model
 
-The data flow diagram for this reference architecture is available for [download](https://aka.ms/AUIaaSTM) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
+The data flow diagram for this reference architecture is available for [download](https://aka.ms/au-protected-iaaswa-tm) or can be found below. This model can help customers understand the points of potential risk in the system infrastructure when making modifications.
 
 ![IaaS Web Application for AU-Protected Threat Model](Azure%20Security%20and%20Compliance%20Blueprint%20-%20AU-Protected%20IaaS%20WebApp%20Threat%20Model.png)
 
@@ -208,9 +206,9 @@ The data flow diagram for this reference architecture is available for [download
 
 This compliance documentation is produced by Microsoft based on platforms and services available from Microsoft. Due to the wide variety of customer deployments, this documentation provides a generalized approach for a solution only hosted in the Azure environment. Customers may identify and use alternative products and services based on their own operating environments and business outcomes. Customers choosing to use on-premises resources must address the security and operations for those on-premises resources. The documented solution can be customized by customers to address their specific on-premises and security requirements.
 
-The [Azure Security and Compliance Blueprint – AU-Protected Customer Responsibility Matrix](https://aka.ms/AUcrm) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
+The [Azure Security and Compliance Blueprint – AU-Protected Customer Responsibility Matrix](https://aka.ms/au-protected-crm) lists all security controls required by AU-Protected. This matrix details whether the implementation of each control is the responsibility of Microsoft, the customer, or shared between the two.
 
-The [Azure Security and Compliance Blueprint – AU-Protected IaaS Web Application Implementation Matrix](https://aka.ms/AUIaaScim) provides information on which AU-Protected controls are addressed by the IaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
+The [Azure Security and Compliance Blueprint – AU-Protected IaaS Web Application Implementation Matrix](https://aka.ms/au-protected-iaaswa-cim) provides information on which AU-Protected controls are addressed by the IaaS web application architecture, including detailed descriptions of how the implementation meets the requirements of each covered control.
 
 ## Guidance and recommendations
 
@@ -227,7 +225,7 @@ Best practices for implementing a secure hybrid network that extends an on-premi
 ### Azure Active Directory setup
 [Azure Active Directory](https://docs.microsoft.com/azure/active-directory/active-directory-whatis) is essential to managing the deployment and provisioning access to personnel interacting with the environment. An existing Windows Server Active Directory can be integrated with Azure Active Directory in [four clicks](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect-get-started-express).
 
-Furthermore, [Azure Active Directory Connect](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect) allows customers to configure federation with on-premises [Active Directory Federation Services]( https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-azure-adfs) and Azure Active Directory. With federation sign-in, customers can enable users to sign in to Azure Active Directory-based services with their on-premises passwords and without having to enter their passwords again while on the corporate network. By using the federation option with Active Directory Federation Services, you can deploy a new installation of Active Directory Federation Services, or you can specify an existing installation in a Windows Server 2012 R2 farm.
+Furthermore, [Azure Active Directory Connect](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect) allows customers to configure federation with on-premises [Active Directory Federation Services]( https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect-azure-adfs) and Azure Active Directory. With federation sign-in, customers can enable users to sign in to Azure Active Directory-based services with their on-premises passwords and without having to enter their passwords again while on the corporate network. By using the federation option with Active Directory Federation Services, you can deploy a new installation of Active Directory Federation Services, or you can specify an existing installation in a Windows Server 2012 R2 farm.
 
 ## Disclaimer
 

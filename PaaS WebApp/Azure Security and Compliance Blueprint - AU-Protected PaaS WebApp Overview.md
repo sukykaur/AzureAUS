@@ -37,32 +37,44 @@ For enhanced security, all Azure resources in this solution are managed as a res
 
 This solution uses the following Azure services. Further details are in the [deployment architecture](#deployment-architecture) section.
 
-- Azure Active Directory
-- Azure Key Vault
-- Azure SQL Database
 - Application Gateway
-	- (1) Web application firewall enabled
+	- Web application firewall
 		- Firewall mode: prevention
-		- Rule set: OWASP 3.0
-		- Listener: port 443
-- Azure Virtual Network
-	- (3) Network security groups
+		- Rule set: OWASP
+		- Listener port: 443
+- Application Insights
+- Azure Active Directory
+- Azure Application Service Environment v2
+- Azure Automation
 - Azure DNS
+- Azure Key Vault
+- Azure Load Balancer
+- Azure Monitor
+- Azure Resource Manager
+- Azure Security Center
+- Azure SQL Database
 - Azure Storage
 - Azure Log Analytics
-- Azure Monitor
-- Azure Security Center
-- App Service Environment v2
-- Azure Load Balancer
+- Azure Virtual Network
+	- (1) /16 Network
+	- (4) /24 Networks
+	- Network security groups
 - Azure Web App
-- Azure Resource Manager
-- Azure Automation
 
 ## Deployment architecture
 The following section details the deployment and implementation elements.
 
 **Azure Resource Manager**:
 [Azure Resource Manager](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview) enables customers to work with the resources in the solution as a group. Customers can deploy, update, or delete all the resources for the solution in a single, coordinated operation. Customers use a template for deployment and that template can work for different environments such as testing, staging, and production. Resource Manager provides security, auditing, and tagging features to help customers manage their resources after deployment.
+
+**Bastion host**: The bastion host is the single point of entry that allows users to access the deployed resources in this environment. The bastion host provides a secure connection to deployed resources by only allowing remote traffic from public IP addresses on a safe list. To permit remote desktop (RDP) traffic, the source of the traffic needs to be defined in the network security group.
+
+This solution creates a virtual machine as a domain-joined bastion host with the following configurations:
+-	[Antimalware extension](https://docs.microsoft.com/azure/security/azure-security-antimalware)
+-	[Azure Diagnostics extension](https://docs.microsoft.com/azure/virtual-machines/virtual-machines-windows-extensions-diagnostics-template)
+-	[Azure Disk Encryption](https://docs.microsoft.com/azure/security/azure-security-disk-encryption) using Azure Key Vault
+-	An [auto-shutdown policy](https://azure.microsoft.com/blog/announcing-auto-shutdown-for-vms-using-azure-resource-manager/) to reduce consumption of virtual machine resources when not in use
+-	[Windows Defender Credential Guard](https://docs.microsoft.com/windows/access-protection/credential-guard/credential-guard) enabled so that credentials and other secrets run in a protected environment that is isolated from the running operating system
 
 **App Service Environment v2**:
 The [Azure App Service Environment](https://docs.microsoft.com/azure/app-service/environment/intro) is an App Service feature that provides a fully isolated and dedicated environment for securely running App Service applications at a high scale.
@@ -90,8 +102,10 @@ The architecture defines a private virtual network with an address space of 10.2
 - 1 network security group for Application Gateway
 - 1 network security group for App Service Environment
 - 1 network security group for Azure SQL Database
+- 1 network security group for bastion host
 
 Each of the network security groups have specific ports and protocols open so that the solution can work securely and correctly. In addition, the following configurations are enabled for each network security group:
+
   -	[Diagnostic logs and events](https://docs.microsoft.com/azure/virtual-network/virtual-network-nsg-manage-log) are enabled and stored in a storage account
   -	Azure Log Analytics is connected to the [network security group's diagnostics](https://github.com/krnese/AzureDeploy/blob/master/AzureMgmt/AzureMonitor/nsgWithDiagnostics.json)
 
@@ -124,7 +138,7 @@ The Azure SQL Database instance uses the following database security measures:
 -	[Firewall rules](https://docs.microsoft.com/azure/sql-database/sql-database-firewall-configure) prevent all access to database servers until proper permissions are granted. The firewall grants access to databases based on the originating IP address of each request.
 -	[SQL Threat Detection](https://docs.microsoft.com/azure/sql-database/sql-database-threat-detection-get-started) enables the detection and response to potential threats as they occur by providing security alerts for suspicious database activities, potential vulnerabilities, SQL injection attacks, and anomalous database access patterns. SQL Threat Detection integrates alerts with [Azure Security Center](https://azure.microsoft.com/services/security-center/), which includes details of suspicious activity and recommended action on how to investigate and mitigate the threat.
 -	[Always Encrypted Columns](https://docs.microsoft.com/azure/sql-database/sql-database-always-encrypted-azure-key-vault) ensure that sensitive data never appears as plaintext inside the database system. After enabling data encryption, only client applications or application servers with access to the keys can access plaintext data.
-- [SQL Database dynamic data masking](https://docs.microsoft.com/azure/sql-database/sql-database-dynamic-data-masking-get-started) limits sensitive data exposure by masking the data to non-privileged users or applications. Dynamic data masking can automatically discover potentially sensitive data and suggest the appropriate masks to be applied. This helps with reducing access such that sensitive data does not exit the database via unauthorized access. **Customers will need to adjust dynamic data masking settings to adhere to their database schema.**
+- [SQL Database dynamic data masking](https://docs.microsoft.com/azure/sql-database/sql-database-dynamic-data-masking-get-started) limits sensitive data exposure by masking the data to non-privileged users or applications. Dynamic data masking can automatically discover potentially sensitive data and suggest the appropriate masks to be applied. This helps with reducing access such that sensitive data does not exit the database via unauthorized access. Customers will need to adjust dynamic data masking settings to adhere to their database schema.
 
 ### Identity management
 Customers may utilize on-premises Active Directory Federated Services to federate with [Azure Active Directory](https://azure.microsoft.com/services/active-directory/), which is Microsoft's multi-tenant cloud-based directory and identity management service. [Azure Active Directory Connect](https://docs.microsoft.com/azure/active-directory/connect/active-directory-aadconnect) integrates on-premises directories with Azure Active Directory. All users in this solution require Azure Active Directory accounts, including users accessing the Azure SQL Database. With federation sign-in, users can sign in to Azure Active Directory and authenticate to Azure resources using on-premises credentials.

@@ -61,6 +61,8 @@ This solution uses the following Azure services. Further details are in the [dep
 	- Network security groups
 - Azure Web App
 
+This Blueprint contains Azure Services that have not been certified for use at the Protected classification by the Australian Cyber Security Centre (ACSC). All services included in this reference architecture have been certified by ACSC at the Dissemination Limiting Markers (DLM) level. Microsoft recommends that customers review the published security and audit reports related to these Azure Services and use their risk management framework to determine whether the Azure Service is suitable for their internal accreditation and use at the Protected classification.
+
 ## Deployment architecture
 The following section details the deployment and implementation elements.
 
